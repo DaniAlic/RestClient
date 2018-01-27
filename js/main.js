@@ -35,25 +35,25 @@ jQuery(function($) {
 			$(this).addClass('active');
 			var url = $(this).attr('href');
 			var requestmethod = $(this).data('requestmethod').toLowerCase() || 'get';
-			$('#apiurl').val(apiBaseUrl + url);
+			$('#apiurl').val($('#apibaseurl').val() + url);
 			$('#requestmethod').val(requestmethod.toUpperCase());
 			!dontpush && history.pushState({'href': url, 'method': requestmethod}, 'clicked ' + url, '#' + requestmethod + '|' + url);
-			makeCall(apiBaseUrl + url, requestmethod, $(this).data('extradata') || {});
+			makeCall($('#apibaseurl').val() + url, requestmethod, $(this).data('extradata') || {});
 		}
 	});
 		
 	// hook form submit
 	$('form').on('submit', function(e, dontpush){
 		e.preventDefault();
-		if ($('#apiurl').val().indexOf(apiBaseUrl) == 0) {
-			var url = $('#apiurl').val().replace(apiBaseUrl,'');
+		if ($('#apiurl').val().indexOf($('#apibaseurl').val()) == 0) {
+			var url = $('#apiurl').val().replace($('#apibaseurl').val(),'');
 			var method = $('#requestmethod').val().toLowerCase();
 			$('#sidebar a').removeClass('active');
 			$('#sidebar a[href="' + url + '"][data-requestmethod="' + method + '"]').addClass('active');
 			!dontpush && history.pushState({'href': url, 'method': method}, 'clicked ' + url, '#' + method + '|' + url);
-			makeCall(apiBaseUrl + url, $('#requestmethod').val());
+			makeCall($('#apibaseurl').val() + url, $('#requestmethod').val());
 		} else {
-			alert('You are only allowed make calls to ' + apiBaseUrl);
+			alert('You are only allowed make calls to ' + $('#apibaseurl').val());
 		}
 	});
 	
@@ -65,7 +65,7 @@ jQuery(function($) {
 		
 		// actual popstate: fill form & submit (but don't push on history stack)
 		if (e.originalEvent.state && e.originalEvent.state.href) {
-			$('#apiurl').val(apiBaseUrl + e.originalEvent.state.href);
+			$('#apiurl').val($('#apibaseurl').val() + e.originalEvent.state.href);
 			$('#requestmethod').val(e.originalEvent.state.method.toUpperCase());
 			$('form').trigger('submit', true);
 		}
@@ -85,7 +85,7 @@ jQuery(function($) {
 		var url = window.location.hash.substr(1).split('|')[1];
 		
 		// fill form & submit (but don't push on history stack)
-		$('#apiurl').val(apiBaseUrl + url);
+		$('#apiurl').val($('#apibaseurl').val() + url);
 		$('#requestmethod').val(method.toUpperCase());
 		$('form').trigger('submit', true);
 

@@ -55,13 +55,16 @@
 						<option value="PUT">PUT</option>
 						<option value="DELETE">DELETE</option>
 					</select>
+					<h4>URL Base</h4>
 				</label>
 				<label class="nine columns omega">
 					<input type="text" id="apiurl" />
+					<input type="text" id="apibaseurl" value="http://localhost:8080/libreria/rest"/>
 				</label>
 			</form>	
 			<div id="result"></div>
 		</div>
+		<h5>Ejemplo URL Base para "Play With Docker": <br>http://ip172-18-0-10-b9m5ea69a8q000c9bui0-8080.direct.labs.play-with-docker.com/libreria/rest</h5>
 	</div>
 
 	<script src="js/jquery-1.7.1.min.js"></script>
@@ -69,7 +72,6 @@
 	<script>
 	
 		// Config
-		var apiBaseUrl = 'http://api:7000/libreria/rest';
 		var apiDataType = 'json';
 		var apiExtraHeaders = '';
 		var apiUrlSuffix = '';
